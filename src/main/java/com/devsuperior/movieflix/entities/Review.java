@@ -1,12 +1,23 @@
 package com.devsuperior.movieflix.entities;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "tb_review")
 public class Review {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "reviews")
     private Movie movie;
 
     public Review() {

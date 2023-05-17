@@ -23,6 +23,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**" };
 
+    private static final String[] AUTHENTICATED_MEMBERS = { "/reviews" };
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
         resources.tokenStore(tokenStore);
@@ -38,6 +40,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(PUBLIC).permitAll()
+                .antMatchers(AUTHENTICATED_MEMBERS).hasRole("MEMBER")
                 .anyRequest().authenticated();
     }
 }

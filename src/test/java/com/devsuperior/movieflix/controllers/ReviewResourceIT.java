@@ -1,6 +1,6 @@
 package com.devsuperior.movieflix.controllers;
 
-import com.devsuperior.movieflix.dto.ReviewDTO;
+import com.devsuperior.movieflix.dtos.ReviewDTO;
 import com.devsuperior.movieflix.tests.TokenUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -118,7 +118,7 @@ public class ReviewResourceIT {
 	}
 
 	@Test
-	public void insertShouldReturnUnproccessableEntityWhenMemberAuthenticatedAndInvalidData() throws Exception {
+	public void insertShouldReturnUnprocessableEntityWhenMemberAuthenticatedAndInvalidData() throws Exception {
 		
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, memberUsername, memberPassword);
 		

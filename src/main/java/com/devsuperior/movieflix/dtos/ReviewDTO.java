@@ -1,17 +1,25 @@
 package com.devsuperior.movieflix.dtos;
 
-import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.entities.Review;
-import com.devsuperior.movieflix.entities.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.validation.constraints.NotBlank;
 
 public class ReviewDTO {
 
     private Long id;
-    private String text;
-    private User user;
-    private Movie movie;
 
-    public ReviewDTO(Long id, String text, User user, Movie movie) {
+    @NotBlank
+    private String text;
+
+    private Long movieId;
+
+    private UserDTO user;
+
+    @JsonIgnore
+    private MovieDTO movie;
+
+    public ReviewDTO(Long id, String text, UserDTO user, MovieDTO movie) {
         this.id = id;
         this.text = text;
         this.user = user;
@@ -21,8 +29,13 @@ public class ReviewDTO {
     public ReviewDTO(Review review) {
         id = review.getId();
         text = review.getText();
-        user = review.getUser();
-        movie = review.getMovie();
+        user = new UserDTO(review.getUser());
+        movie = new MovieDTO(review.getMovie());
+        movieId = review.getMovie().getId();
+    }
+
+    public ReviewDTO() {
+
     }
 
     public Long getId() {
@@ -41,19 +54,27 @@ public class ReviewDTO {
         this.text = text;
     }
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
-    public Movie getMovie() {
+    public MovieDTO getMovie() {
         return movie;
     }
 
-    public void setMovie(Movie movie) {
+    public void setMovie(MovieDTO movie) {
         this.movie = movie;
+    }
+
+    public Long getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(Long movieId) {
+        this.movieId = movieId;
     }
 }

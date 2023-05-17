@@ -1,5 +1,7 @@
 package com.devsuperior.movieflix.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,8 @@ public class Genre {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "genre")
+    @JsonIgnore
+    @OneToMany(mappedBy = "genre", fetch = FetchType.EAGER)
     private List<Movie> movies = new ArrayList<>();
 
     public Genre() {

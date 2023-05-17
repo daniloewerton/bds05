@@ -15,8 +15,10 @@ public class MovieDTO {
     private Integer year;
     private String imgUrl;
     private String synopsis;
+    private GenreDTO genreDTO;
+
     private Genre genre;
-    private List<Review> reviews = new ArrayList<>();
+    private List<ReviewDTO> reviews = new ArrayList<>();
 
     public MovieDTO(Long id, String title, String subTitle, Integer year, String imgUrl, String synopsis, Genre genre) {
         this.id = id;
@@ -26,6 +28,11 @@ public class MovieDTO {
         this.imgUrl = imgUrl;
         this.synopsis = synopsis;
         this.genre = genre;
+    }
+
+    public MovieDTO(Movie movie, List<Review> reviews) {
+        this(movie);
+        reviews.forEach(r -> this.reviews.add(new ReviewDTO(r)));
     }
 
     public MovieDTO(Movie movie) {
@@ -94,7 +101,7 @@ public class MovieDTO {
         this.genre = genre;
     }
 
-    public List<Review> getReviews() {
+    public List<ReviewDTO> getReviews() {
         return reviews;
     }
 }

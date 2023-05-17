@@ -1,5 +1,7 @@
 package com.devsuperior.movieflix.entities;
 
+import com.devsuperior.movieflix.dtos.UserDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +31,7 @@ public class User implements UserDetails, Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();
 
@@ -41,6 +44,13 @@ public class User implements UserDetails, Serializable {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public User(UserDTO user) {
+        id = user.getId();
+        name = user.getName();
+        email = user.getEmail();
+        password = user.getPassword();
     }
 
     public Long getId() {

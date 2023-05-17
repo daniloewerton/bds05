@@ -1,5 +1,8 @@
 package com.devsuperior.movieflix.entities;
 
+import com.devsuperior.movieflix.dtos.MovieDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +19,16 @@ public class Movie {
     private String subTitle;
     private Integer year;
     private String imgUrl;
+
+    @Column(columnDefinition = "TEXT")
     private String synopsis;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
     private List<Review> reviews = new ArrayList<>();
 
     public Movie() {
@@ -37,6 +43,16 @@ public class Movie {
         this.imgUrl = imgUrl;
         this.synopsis = synopsis;
         this.genre = genre;
+    }
+
+    public Movie(MovieDTO dto) {
+        id = dto.getId();
+        title = dto.getTitle();
+        subTitle = dto.getSubTitle();
+        year = dto.getYear();
+        imgUrl = dto.getImgUrl();
+        synopsis = dto.getSynopsis();
+        genre = dto.getGenre();
     }
 
     public Long getId() {

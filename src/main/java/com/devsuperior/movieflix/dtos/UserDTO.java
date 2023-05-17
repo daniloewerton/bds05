@@ -3,6 +3,7 @@ package com.devsuperior.movieflix.dtos;
 import com.devsuperior.movieflix.entities.Review;
 import com.devsuperior.movieflix.entities.Role;
 import com.devsuperior.movieflix.entities.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,14 @@ public class UserDTO {
     private Long id;
     private String name;
     private String email;
+
+    @JsonIgnore
     private String password;
+
+    @JsonIgnore
     private List<Role> roles = new ArrayList<>();
+
+    @JsonIgnore
     private List<Review> reviews = new ArrayList<>();
 
     public UserDTO(Long id, String name, String email, String password) {

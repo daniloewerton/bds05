@@ -11,9 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-//    @Query(nativeQuery = true, value = "SELECT * FROM tb_movie ORDER BY title DESC")
-//    Page<Movie> findAll(Pageable pageable);
-
     @Query("SELECT movie FROM Movie movie WHERE (:genre IS NULL OR movie.genre = :genre) ORDER BY movie.title ASC")
     Page<Movie> find(Pageable pageable, Genre genre);
 

@@ -1,51 +1,29 @@
 package com.devsuperior.movieflix.dtos;
 
-import com.devsuperior.movieflix.entities.Genre;
 import com.devsuperior.movieflix.entities.Movie;
-import com.devsuperior.movieflix.entities.Review;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MovieDTO {
+public class MovieCardDTO {
 
     private Long id;
     private String title;
     private String subTitle;
     private Integer year;
     private String imgUrl;
-    private String synopsis;
-    private GenreDTO genreDTO;
 
-    private Genre genre;
-
-    @JsonIgnore
-    private List<ReviewDTO> reviews = new ArrayList<>();
-
-    public MovieDTO(Long id, String title, String subTitle, Integer year, String imgUrl, String synopsis, Genre genre) {
+    public MovieCardDTO(Long id, String title, String subTitle, Integer year, String imgUrl) {
         this.id = id;
         this.title = title;
         this.subTitle = subTitle;
         this.year = year;
         this.imgUrl = imgUrl;
-        this.synopsis = synopsis;
-        this.genre = genre;
     }
 
-    public MovieDTO(Movie movie, List<Review> reviews) {
-        this(movie);
-        reviews.forEach(r -> this.reviews.add(new ReviewDTO(r)));
-    }
-
-    public MovieDTO(Movie movie) {
+    public MovieCardDTO(Movie movie) {
         id = movie.getId();
         title = movie.getTitle();
         subTitle = movie.getSubTitle();
         year = movie.getYear();
         imgUrl = movie.getImgUrl();
-        synopsis = movie.getSynopsis();
-        genre = movie.getGenre();
     }
 
     public Long getId() {
@@ -86,25 +64,5 @@ public class MovieDTO {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
-    }
-
-    public String getSynopsis() {
-        return synopsis;
-    }
-
-    public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
-    }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
-
-    public List<ReviewDTO> getReviews() {
-        return reviews;
     }
 }
